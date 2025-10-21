@@ -24,7 +24,7 @@ public class Main {
             }
             catch (Exception e) {
                 System.out.println("Entrada inválida! Digite apenas números.");
-                sc.nextLine(); // limpa entrada inválida
+                sc.nextLine();
                 opcao = -1;
                 continue;
             }
