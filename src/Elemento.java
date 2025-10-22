@@ -7,15 +7,20 @@ public class Elemento {
     private String idCliente;
     private String motivoAtendimento;
 
-    public Elemento(String idSolicitacao, String descricaoSolicitacao, String dataHora){
-        this.idSolicitacao = idSolicitacao;
+    private static int contadorSolicitacoes = 0;
+    private static int contadorClientes = 0;
+
+    public Elemento(String descricaoSolicitacao, String dataHora){
+        contadorSolicitacoes++;
+        this.idSolicitacao = "SOL " + contadorSolicitacoes;
         this.descricaoSolicitacao = descricaoSolicitacao;
         this.dataHora = dataHora;
     }
 
-    public Elemento(String nomeCliente, String idCliente, String motivoAtendimento, int clienteFlag){
+    public Elemento(String nomeCliente, String motivoAtendimento, int clienteFlag){
+        contadorClientes++;
+        this.idCliente = "CLI " + contadorClientes;
         this.nomeCliente = nomeCliente;
-        this.idCliente = idCliente;
         this.motivoAtendimento = motivoAtendimento;
     }
 

@@ -26,7 +26,7 @@ public class FilaAtendimento {
 
     public Elemento remove(){
         if(vazia()){
-            System.out.println("Lista vazia!");
+            System.out.println("Fila vazia!");
             return null;
         }
         else{

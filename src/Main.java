@@ -1,55 +1,117 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-
+        Scanner sc = new Scanner(System.in);
+        PilhaSolicitacoes pilha = new PilhaSolicitacoes();
         FilaAtendimento fila = new FilaAtendimento();
 
-        fila.adicionarCliente(new Elemento("Maria Silva", "CLI001", "Dúvida sobre produto", 0));
-        fila.adicionarCliente(new Elemento("João Souza", "CLI002", "Reclamação de serviço", 0));
-        fila.adicionarCliente(new Elemento("Ana Costa", "CLI003", "Solicitação de reembolso", 0));
-        fila.adicionarCliente(new Elemento("Pedro Alves", "CLI004", "Informações de entrega", 0));
-        fila.adicionarCliente(new Elemento("Carla Dias", "CLI005", "Agendamento de visita", 0));
-        fila.adicionarCliente(new Elemento("Lucas Martins", "CLI006", "Alteração de pedido", 0));
-        fila.adicionarCliente(new Elemento("Patrícia Rocha", "CLI007", "Cancelamento de contrato", 0));
-        fila.adicionarCliente(new Elemento("Rafael Lima", "CLI008", "Renovação de assinatura", 0));
-        fila.adicionarCliente(new Elemento("Fernanda Gomes", "CLI009", "Suporte para instalação", 0));
-        fila.adicionarCliente(new Elemento("Carlos Eduardo", "CLI010", "Pedido de orçamento", 0));
+        int opcao = -1;
 
-        System.out.println("Fila (inicial):");
-        fila.imprime();
+        while (opcao != 0) {
+            try {
+                System.out.println("1 - Adicionar cliente na fila");
+                System.out.println("2 - Atender próximo cliente");
+                System.out.println("3 - Mostrar fila");
+                System.out.println("4 - Adicionar solicitação no histórico (pilha)");
+                System.out.println("5 - Remover última solicitação (desfazer)");
+                System.out.println("6 - Mostrar histórico");
+                System.out.println("0 - Sair");
+                System.out.print("Escolha uma opção: ");
 
-        int atendimento = 1;
-        while (!fila.vazia()) {
-            System.out.println("\n--- Atendimento #" + atendimento + " ---");
-            System.out.println("Fila (antes):");
-            fila.imprime();
-
-            Elemento atendido = fila.remove();
-            if (atendido != null) {
-                System.out.println("Atendido: " + atendido.getIdCliente() + " - " + atendido.getNomeCliente()
-                        + " | Motivo: " + atendido.getMotivoAtendimento());
+                opcao = sc.nextInt();
+                sc.nextLine();
+            }
+            catch (Exception e) {
+                System.out.println("Entrada inválida! Digite apenas números.");
+                sc.nextLine();
+                opcao = -1;
+                continue;
             }
 
-            System.out.println("Fila (depois):");
-            fila.imprime();
-            atendimento = atendimento + 1;
+            if (opcao == 1) {
+                try {
+                    System.out.print("Nome do cliente: ");
+                    String nome = sc.nextLine();
+                    if (nome.length() == 0) {
+                        throw new Exception("O nome não pode estar vazio!");
+                    }
+
+                    System.out.print("Motivo do atendimento: ");
+                    String motivo = sc.nextLine();
+                    if (motivo.length() == 0) {
+                        throw new Exception("O motivo não pode estar vazio!");
+                    }
+
+                    Elemento cliente = new Elemento(nome, motivo, 1);
+                    fila.adicionarCliente(cliente);
+                    System.out.println("Cliente adicionado à fila");
+                }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+
+            else if (opcao == 2) {
+                Elemento atendido = fila.remove();
+                if (atendido != null) {
+                    System.out.println("Cliente atendido: " + atendido.getNomeCliente());
+                }
+            }
+            else if (opcao == 3) {
+                if (fila.vazia()) {
+                    System.out.println("Fila vazia!");
+                } else {
+                    System.out.println("Fila atual:");
+                    fila.imprime();
+                }
+            }
+            else if (opcao == 4) {
+                try {
+                    System.out.print("Descrição da solicitação: ");
+                    String desc = sc.nextLine();
+                    if (desc.length() == 0) {
+                        throw new Exception("A descrição não pode estar vazia!");
+                    }
+
+                    System.out.print("Data e hora (DD-MM-YYYY HH:MM): ");
+                    String dataHora = sc.nextLine();
+
+                    if (dataHora.length() != 16) {
+                        throw new Exception("Formato incorreto! Use DD-MM-YYYY HH:MM");
+                    }
+
+                    if (dataHora.charAt(2) != '-' || dataHora.charAt(5) != '-' ||
+                            dataHora.charAt(10) != ' ' || dataHora.charAt(13) != ':') {
+                        throw new Exception("Formato incorreto! Use DD-MM-YYYY HH:MM");
+                    }
+
+                    Elemento solicitacao = new Elemento(desc, dataHora);
+                    pilha.adicionaSolicitacao(solicitacao);
+                    System.out.println("Solicitação adicionada ao histórico");
+                }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            else if (opcao == 5) {
+                Elemento removida = pilha.removeSolicitacao();
+                if (removida != null) {
+                    System.out.println("Solicitação removida: " + removida.getDescricaoSolicitacao());
+                }
+            }
+            else if (opcao == 6) {
+                System.out.println("Histórico de solicitações:");
+                pilha.exibeHistorico();
+            }
+            else if (opcao == 0) {
+                System.out.println("Encerrando o sistema...");
+            }
+            else {
+                System.out.println("Opção inválida! Escolha uma opção de 0 a 6.");
+            }
         }
 
-        System.out.println("\nFila esvaziada.");
-
-        PilhaSolicitacoes pilha = new PilhaSolicitacoes();
-
-        pilha.adicionaSolicitacao(new Elemento("REQ001", "Instalação de software", "2024-08-20 10:30"));
-        pilha.adicionaSolicitacao(new Elemento("REQ002", "Manutenção preventiva", "2024-08-20 11:00"));
-        pilha.adicionaSolicitacao(new Elemento("REQ003", "Atualização de sistema", "2024-08-20 11:30"));
-        pilha.adicionaSolicitacao(new Elemento("REQ004", "Suporte técnico", "2024-08-20 12:00"));
-        pilha.adicionaSolicitacao(new Elemento("REQ005", "Troca de equipamento", "2024-08-20 12:30"));
-        pilha.adicionaSolicitacao(new Elemento("REQ006", "Consulta de garantia", "2024-08-20 13:00"));
-        pilha.adicionaSolicitacao(new Elemento("REQ007", "Reparo de impressora", "2024-08-20 13:30"));
-        pilha.adicionaSolicitacao(new Elemento("REQ008", "Configuração de rede", "2024-08-20 14:00"));
-        pilha.adicionaSolicitacao(new Elemento("REQ009", "Restauração de dados", "2024-08-20 14:30"));
-        pilha.adicionaSolicitacao(new Elemento("REQ010", "Consulta técnica", "2024-08-20 15:00"));
-
-        System.out.println("\nHistórico:");
-        pilha.exibeHistorico();
+        sc.close();
     }
 }
