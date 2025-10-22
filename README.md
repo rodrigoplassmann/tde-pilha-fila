@@ -59,7 +59,7 @@ Cada nó contém:
 #### Métodos:
 - **Construtor:** recebe um `Elemento` e define o `proximo` como `null`.  
 - **getElemento():** retorna o conteúdo armazenado no nó.  
-- **getProximo() / setProximo():** acessam e modificam o encadeamento entre nós.
+- **getProximo()/setProximo():** acessam e modificam o encadeamento entre nós.
 
 ---
 
