@@ -36,11 +36,11 @@ Ambas as estruturas foram implementadas com listas encadeadas, através de uma c
 Responsável por representar tanto uma **solicitação** (na pilha) quanto um **cliente** (na fila).
 
 #### Atributos:
-- `String id` — identificador da solicitação ou cliente.  
-- `String descricao` — descrição da solicitação.  
-- `String dataHora` — data e hora do registro (para histórico da pilha).  
-- `String nome` — nome do cliente (usado na fila).  
-- `String motivo` — motivo do atendimento (usado na fila).  
+- `String id` - identificador da solicitação ou cliente.  
+- `String descricao` - descrição da solicitação.  
+- `String dataHora` - data e hora do registro (para histórico da pilha).  
+- `String nome` - nome do cliente (usado na fila).  
+- `String motivo` - motivo do atendimento (usado na fila).  
 
 #### Métodos:
 - **Construtores:** inicializam o objeto de acordo com o tipo de estrutura (pilha ou fila).  
@@ -69,7 +69,7 @@ Implementa uma **pilha manualmente**, com base em lista encadeada.
 Segue o princípio **LIFO** (*Last In, First Out*): o último elemento inserido é o primeiro a ser removido.
 
 #### Atributo:
-- `No topo` — referência ao último elemento inserido (topo da pilha).
+- `No topo` - referência ao último elemento inserido (topo da pilha).
 
 #### Métodos:
 - **`adicionarSolicitacao(String id, String descricao, String dataHora)`**  
@@ -99,8 +99,8 @@ Implementa uma fila manualmente, com base em **lista encadeada**.
 Segue o princípio **FIFO (First In, First Out)**: o primeiro cliente que entra é o primeiro a ser atendido.
 
 ### Atributos
-- **No `frente`** — primeiro cliente da fila.  
-- **No `tras`** — último cliente inserido (cauda da fila).
+- **No `frente`** - primeiro cliente da fila.  
+- **No `tras`** - último cliente inserido (cauda da fila).
 
 ### Métodos
 
@@ -140,8 +140,8 @@ O projeto demonstrou, de forma prática, a implementação de duas estruturas de
 
 Através do sistema de gerenciamento de atendimento ao cliente, foi possível observar claramente o comportamento das operações de **inserção**, **remoção** e **varredura** em ambas as estruturas:
 
-- **Fila (FIFO)** — garante a ordem justa de atendimento, onde o primeiro cliente a chegar é o primeiro a ser atendido.  
-- **Pilha (LIFO)** — permite o controle reverso do histórico de solicitações, priorizando as mais recentes.  
+- **Fila (FIFO)** - garante a ordem justa de atendimento, onde o primeiro cliente a chegar é o primeiro a ser atendido.  
+- **Pilha (LIFO)** - permite o controle reverso do histórico de solicitações, priorizando as mais recentes.  
 
 ####  O projeto atende os seguintes objetivos:
 - Implementa **Pilha** e **Fila** com **listas encadeadas**.  
